@@ -1,0 +1,10 @@
+os:
+  - osx
+language: generic
+osx_image: xcode10.1
+sudo: required
+dist: trusty
+install:
+  - swift package resolve
+script:
+  - swift test
