@@ -24,9 +24,9 @@ let package = Package(
         // Commander, makes documentation and routing of command line interfaces a
         // lot easier to build.
         // Doumentation: https://github.com/kylef/Commander
-        .package(url: "git@github.com:kylef/Commander.git", from: "0.8.0"),
+        .package(url: "https://github.com/kylef/Commander.git", from: "0.8.0"),
         // Helper functions for saving text in Keychain securely for iOS, OS X, tvOS and watchOS.
-        .package(url: "git@github.com:evgenyneu/keychain-swift.git", from: "13.0.0")
+        .package(url: "https://github.com/evgenyneu/keychain-swift.git", from: "13.0.0")
     ],
     targets: [
         // The core application. Should include use cases, bussiness logic and bussiness objects
