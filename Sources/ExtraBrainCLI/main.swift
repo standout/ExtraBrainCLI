@@ -8,13 +8,20 @@ func readSecretLine() -> String? {
 }
 
 let group = Group {
-//    $0.group("projects", "Manage projects") {
-//        $0.command("ls", description: "List all your projects") { ListProjectsCommand().print() }
-//    }
+    #if DEBUG
+    // Not yet released
+    $0.group("projects", "Manage projects") {
+        $0.command("ls", description: "List all your projects") { ListProjectsCommand().print() }
+    }
+    #endif
 
     $0.group("tasks", "Manage tasks") {
         $0.command("ls", description: "List all your tasks") { ListTasksCommand().print() }
-        // $0.command("current", description: "Show the task you have a running time log on") { GetCurrentTaskCommand().print() }
+
+        #if DEBUG
+        // Not yet released
+        $0.command("current", description: "Show the task you have a running time log on") { GetCurrentTaskCommand().print() }
+        #endif
     }
 
     $0.group("time", "List, add and start time logs") {
