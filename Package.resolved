@@ -3,7 +3,7 @@
     "pins": [
       {
         "package": "Commander",
-        "repositoryURL": "git@github.com:kylef/Commander.git",
+        "repositoryURL": "https://github.com/kylef/Commander.git",
         "state": {
           "branch": null,
           "revision": "e5b50ad7b2e91eeb828393e89b03577b16be7db9",
@@ -12,7 +12,7 @@
       },
       {
         "package": "KeychainSwift",
-        "repositoryURL": "git@github.com:evgenyneu/keychain-swift.git",
+        "repositoryURL": "https://github.com/evgenyneu/keychain-swift.git",
         "state": {
           "branch": null,
           "revision": "50769a824dc1fc3681c6a752e818ee77d7031ba5",
