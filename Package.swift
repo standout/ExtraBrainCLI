@@ -25,6 +25,8 @@ let package = Package(
         // lot easier to build.
         // Doumentation: https://github.com/kylef/Commander
         .package(url: "git@github.com:kylef/Commander.git", from: "0.8.0"),
+        // Helper functions for saving text in Keychain securely for iOS, OS X, tvOS and watchOS.
+        .package(url: "git@github.com:evgenyneu/keychain-swift.git", from: "13.0.0")
     ],
     targets: [
         // The core application. Should include use cases, bussiness logic and bussiness objects
@@ -37,7 +39,7 @@ let package = Package(
         // Delivery mechanism for ExtraBrain in the command line
         .target(
             name: "ExtraBrainCLI",
-            dependencies: ["ExtraBrain", "Commander"]),
+            dependencies: ["ExtraBrain", "Commander", "KeychainSwift"]),
         .testTarget(
             name: "ExtraBrainCLITests",
             dependencies: ["ExtraBrainCLI"]),

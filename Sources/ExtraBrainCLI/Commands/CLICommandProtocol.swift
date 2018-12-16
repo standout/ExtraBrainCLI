@@ -1,4 +1,5 @@
 import ExtraBrain
+import KeychainSwift
 
 protocol CLICommandProtocol {
     associatedtype Request: InteractionRequest
@@ -15,7 +16,17 @@ protocol CLICommandProtocol {
 
 extension CLICommandProtocol {
     var context: InteractionContext {
+        #if DEBUG
         return MockInteractionContext()
+        #else
+        let keychain = KeychainSwift(keyPrefix: "se.standout.ExtraBrainCLI.")
+        guard let email = keychain.get("email"),
+            let password = keychain.get("password") else {
+            fatalError("Use `eb login` to set email and password for ExtraBrain")
+        }
+
+        return WebInteractionContext(email: email, password: password)
+        #endif
     }
 
     func buildRequest() -> Request {

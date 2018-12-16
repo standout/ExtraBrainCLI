@@ -1,15 +1,20 @@
 import Foundation
 import Commander
 import ExtraBrain
+import KeychainSwift
+
+func readSecretLine() -> String? {
+    return String(cString: getpass(""))
+}
 
 let group = Group {
-    $0.group("projects", "Manage projects") {
-        $0.command("ls", description: "List all your projects") { ListProjectsCommand().print() }
-    }
+//    $0.group("projects", "Manage projects") {
+//        $0.command("ls", description: "List all your projects") { ListProjectsCommand().print() }
+//    }
 
     $0.group("tasks", "Manage tasks") {
         $0.command("ls", description: "List all your tasks") { ListTasksCommand().print() }
-        $0.command("current", description: "Show the task you have a running time log on") { GetCurrentTaskCommand().print() }
+        // $0.command("current", description: "Show the task you have a running time log on") { GetCurrentTaskCommand().print() }
     }
 
     $0.group("time", "List, add and start time logs") {
@@ -35,12 +40,32 @@ let group = Group {
         }
     }
 
-    // TODO: This is an important feature becouse we must be able to login to do whatever is needed
-    $0.command("login", description: "Login using your ExtraBrain account") { (name:String) in
-        print("Hello \(name)")
+    $0.command("login", description: "Login using your ExtraBrain account") {
+        print("Login email:")
+        guard let email = readLine(strippingNewline: true) else {
+            print("No email?")
+            return
+        }
+
+        print("Password:")
+
+        guard let password = readSecretLine() else {
+            print("No password?!")
+            return
+        }
+
+        let keychain = KeychainSwift(keyPrefix: "se.standout.ExtraBrainCLI.")
+        keychain.set(email, forKey: "email")
+        keychain.set(password, forKey: "password")
+
+        print("Your credentials is now stored using Apples Keychain")
     }
 
     $0.command("logout", description: "Discard stored session or credentials") {
+        let keychain = KeychainSwift(keyPrefix: "se.standout.ExtraBrainCLI.")
+        keychain.delete("email")
+        keychain.delete("password")
+
         print("Goodbye.")
     }
 }

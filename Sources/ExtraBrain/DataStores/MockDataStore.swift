@@ -43,7 +43,7 @@ class MockDataStore: DataStore {
         resultHandler(timeEntries)
     }
 
-    func createTimeEntry(duration: TimeInterval, description: String, autostart: Bool, resultHandler: (TimeEntry) -> ()) {
+    func createTimeEntry(duration: TimeInterval, description: String, autostart: Bool, projectId: Int? = nil, taskId: Int? = nil, resultHandler: @escaping  (TimeEntry?) -> ()) {
         let timeEntry = TimeEntry(id: 1, description: description, duration: duration)
         resultHandler(timeEntry)
     }
