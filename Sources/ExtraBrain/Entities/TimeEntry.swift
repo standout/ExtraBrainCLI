@@ -32,7 +32,7 @@ extension TimeEntry: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
-        description = try values.decode(String.self, forKey: .description)
+        description = (try? values.decode(String.self, forKey: .description)) ?? ""
         duration = try values.decode(TimeInterval.self, forKey: .duration)
 
         if let projectId = try? values.decode(Int.self, forKey: .projectId),
