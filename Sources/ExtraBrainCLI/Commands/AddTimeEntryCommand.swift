@@ -51,14 +51,15 @@ class AddTimeEntryCommand: CLICommandProtocol {
     func render() -> String {
         let result = self.result ?? execute()
 
-        guard let timeEntry = result.timeEntry else {
-            return result.errors.map({ "🚫 \($0)" }).joined(separator: "\n")
+        switch result {
+        case .failure(let error):
+            return "🚫 \(error.localizedDescription)"
+        case .success(let timeEntry):
+            let presenter = TimeEntryPresenter(timeEntry: timeEntry)
+            let row = [presenter.id, presenter.description, presenter.project, presenter.task, presenter.duration]
+            let view = ListView(header: ["ID", "Description", "Project", "Task", "Duration"], rows: [row])
+
+            return view.render()
         }
-
-        let presenter = TimeEntryPresenter(timeEntry: timeEntry)
-        let row = [presenter.id, presenter.description, presenter.project, presenter.task, presenter.duration]
-        let view = ListView(header: ["ID", "Description", "Project", "Task", "Duration"], rows: [row])
-
-        return view.render()
     }
 }

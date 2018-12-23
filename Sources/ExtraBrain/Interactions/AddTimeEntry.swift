@@ -15,10 +15,7 @@ public struct AddTimeEntryRequest: InteractionRequest {
     }
 }
 
-public struct AddTimeEntryResult: InteractionResult {
-    public let timeEntry: TimeEntry?
-    public var errors = [InteractionError]()
-}
+public typealias AddTimeEntryResult = InteractionResult<TimeEntry>
 
 public class AddTimeEntry: InteractionProtocol {
     public typealias Request = AddTimeEntryRequest
@@ -36,13 +33,13 @@ public class AddTimeEntry: InteractionProtocol {
                                           autostart: false,
                                           projectId: request.projectId,
                                           taskId: request.taskId) { timeEntry in
-            var errors = [InteractionError]()
-            if timeEntry == nil {
-                errors.append(.init(message: "No time entry was created"))
+
+            guard let timeEntry = timeEntry else {
+                resultHandler(.failure(.customError(message: "No time entry was created")))
+                return
             }
 
-            let result = Result(timeEntry: timeEntry, errors: errors)
-            resultHandler(result)
+            resultHandler(.success(timeEntry))
         }
     }
 }

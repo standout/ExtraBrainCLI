@@ -25,18 +25,23 @@ class ListTimeEntriesCommand: CLICommandProtocol {
     func render() -> String {
         let result = self.result ?? execute()
 
-        let presenters = result.timeEntries.map(TimeEntryPresenter.init)
-        var rows = presenters.map { [$0.id, $0.description, $0.project, $0.task, $0.duration] }
-        let totalRow = [
-            "",
-            "Total",
-            "",
-            "",
-            result.timeEntries.map({$0.duration}).reduce(0, +).humanTimeString
-        ]
-        rows.append(totalRow)
-        let view = ListView(header: ["ID", "Description", "Project", "Task", "Duration"], rows: rows)
+        switch result {
+        case .failure(let error):
+            return "🚫 \(error.localizedDescription)"
+        case .success(let timeEntries):
+            let presenters = timeEntries.map(TimeEntryPresenter.init)
+            var rows = presenters.map { [$0.id, $0.description, $0.project, $0.task, $0.duration] }
+            let totalRow = [
+                "",
+                "Total",
+                "",
+                "",
+                timeEntries.map({$0.duration}).reduce(0, +).humanTimeString
+            ]
+            rows.append(totalRow)
+            let view = ListView(header: ["ID", "Description", "Project", "Task", "Duration"], rows: rows)
 
-        return view.render()
+            return view.render()
+        }
     }
 }
