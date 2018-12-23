@@ -20,7 +20,29 @@ public class WebInteractionContext: InteractionContext {
     }
 }
 
+public enum InteractionError: Error {
+    case customError(message: String)
+}
 
-public struct InteractionError {
-    let message: String
+extension InteractionError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .customError(let message):
+            return message
+        }
+    }
+
+    public var failureReason: String? {
+        switch self {
+        case .customError:
+            return NSLocalizedString("I don't know why.", comment: "")
+        }
+    }
+    
+    public var recoverySuggestion: String? {
+        switch self {
+        case .customError:
+            return NSLocalizedString("Switch it off and on again.", comment: "")
+        }
+    }
 }

@@ -25,10 +25,15 @@ class ListTasksCommand: CLICommandProtocol {
     func render() -> String {
         let result = self.result ?? execute()
 
-        let presenters = result.tasks.map(TaskPresenter.init)
-        let rows = presenters.map { [$0.id, $0.title] }
-        let view = ListView(header: ["ID", "Title"], rows: rows)
+        switch result {
+        case .failure(let error):
+            return "🚫 \(error.localizedDescription)"
+        case .success(let tasks):
+            let presenters = tasks.map(TaskPresenter.init)
+            let rows = presenters.map { [$0.id, $0.title] }
+            let view = ListView(header: ["ID", "Title"], rows: rows)
 
-        return view.render()
+            return view.render()
+        }
     }
 }

@@ -1,13 +1,6 @@
-public protocol InteractionRequest {
-    init()
-}
-
-public protocol InteractionResult {
-}
-
 public protocol InteractionProtocol {
     associatedtype Request: InteractionRequest
-    associatedtype Result: InteractionResult
+    associatedtype Result: InteractionResultProtocol
 
     var context: InteractionContext { get }
 

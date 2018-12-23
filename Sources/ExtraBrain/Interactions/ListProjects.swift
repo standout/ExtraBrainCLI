@@ -5,9 +5,7 @@ public struct ListProjectsRequest: InteractionRequest {
     }
 }
 
-public struct ListProjectsResult: InteractionResult {
-    public let projects: [Project]
-}
+public typealias ListProjectsResult = InteractionResult<[Project]>
 
 public class ListProjects: InteractionProtocol {
     public typealias Request = ListProjectsRequest
@@ -21,8 +19,7 @@ public class ListProjects: InteractionProtocol {
 
     public func execute(request: ListProjectsRequest, resultHandler: @escaping (ListProjectsResult) -> ()) {
         context.dataStore.getProjects { projects in
-            let result = ListProjectsResult(projects: projects)
-            resultHandler(result)
+            resultHandler(.success(projects))
         }
     }
 }

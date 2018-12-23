@@ -5,9 +5,7 @@ public struct ListTimeEntriesRequest: InteractionRequest {
     }
 }
 
-public struct ListTimeEntriesResult: InteractionResult {
-    public let timeEntries: [TimeEntry]
-}
+public typealias ListTimeEntriesResult = InteractionResult<[TimeEntry]>
 
 public class ListTimeEntries: InteractionProtocol {
     public typealias Request = ListTimeEntriesRequest
@@ -21,8 +19,7 @@ public class ListTimeEntries: InteractionProtocol {
 
     public func execute(request: Request, resultHandler: @escaping (Result) -> ()) {
         context.dataStore.getTodayTimeEntries { timeEntries in
-            let result = Result(timeEntries: timeEntries)
-            resultHandler(result)
+            resultHandler(.success(timeEntries))
         }
     }
 }

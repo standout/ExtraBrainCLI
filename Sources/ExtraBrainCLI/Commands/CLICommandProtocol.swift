@@ -3,7 +3,7 @@ import KeychainSwift
 
 protocol CLICommandProtocol {
     associatedtype Request: InteractionRequest
-    associatedtype Result: InteractionResult
+    associatedtype Result: InteractionResultProtocol
     associatedtype Interaction: InteractionProtocol
 
     var context: InteractionContext { get }

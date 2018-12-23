@@ -25,10 +25,15 @@ class GetCurrentTaskCommand: CLICommandProtocol {
     func render() -> String {
         let result = self.result ?? execute()
 
-        let presenter = TaskPresenter(task: result.task)
-        let rows = [[presenter.id, presenter.title]]
-        let view = ListView(header: ["ID", "Title"], rows: rows)
+        switch result {
+        case .failure(let error):
+            return "🚫 \(error.localizedDescription)"
+        case .success(let task):
+            let presenter = TaskPresenter(task: task)
+            let rows = [[presenter.id, presenter.title]]
+            let view = ListView(header: ["ID", "Title"], rows: rows)
 
-        return view.render()
+            return view.render()
+        }
     }
 }
