@@ -1,6 +1,13 @@
 # ExtraBrainCLI
 
-A CLI for extrabrain that you can use in your termnial. 
+A CLI for extrabrain that you can use in your termnial.
+
+## Install using homebrew
+
+```bash
+$ brew tap standout/formulae
+$ brew install extrabrain
+```
 
 ## Build a release for your machine
 
