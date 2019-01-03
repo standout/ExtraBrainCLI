@@ -5,6 +5,7 @@ build:
 	swift build -c release --product eb --disable-sandbox
 
 install: build
+	mkdir -p "$(bindir)"
 	install ".build/x86_64-apple-macosx10.10/release/eb" "$(bindir)"
 
 uninstall:
