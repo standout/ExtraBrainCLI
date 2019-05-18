@@ -1,4 +1,4 @@
-// swift-tools-version:4.2
+// swift-tools-version:5.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -26,7 +26,8 @@ let package = Package(
         // Doumentation: https://github.com/kylef/Commander
         .package(url: "https://github.com/kylef/Commander.git", from: "0.8.0"),
         // Helper functions for saving text in Keychain securely for iOS, OS X, tvOS and watchOS.
-        .package(url: "https://github.com/evgenyneu/keychain-swift.git", from: "13.0.0")
+        // https://github.com/evgenyneu/keychain-swift
+        .package(url: "https://github.com/evgenyneu/keychain-swift.git", from: "15.0.0")
     ],
     targets: [
         // The core application. Should include use cases, bussiness logic and bussiness objects
