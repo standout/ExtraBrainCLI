@@ -6,7 +6,7 @@ build:
 
 install: build
 	mkdir -p "$(bindir)"
-	install ".build/x86_64-apple-macosx10.10/release/eb" "$(bindir)"
+	install ".build/x86_64-apple-macosx/release/eb" "$(bindir)"
 
 uninstall:
 	rm -rf "$(bindir)/eb"
